@@ -21,4 +21,4 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "1.16.0"
+appVersion: "latest" # doing this because AppVersion is appended to image as tag see here: https://github.com/Timtech4u/devops-playground/blob/59db57b5e6d366bd5a3c2a0f8c94a879b9a4fd36/flask-app/templates/deployment.yaml#L34
