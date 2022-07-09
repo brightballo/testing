@@ -4,8 +4,10 @@
 
 replicaCount: 1
 
+containerPort: 8080
+
 image:
-  repository: nginx
+  repository: gcr.io/dev-workloads/flask-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -37,8 +39,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: LoadBalancer
+  port: 8080
 
 ingress:
   enabled: false
