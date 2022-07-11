@@ -10,7 +10,7 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source: 
-    chart: bitnami
+    chart: bitnami/nats
     helm: 
       parameters: 
         - name: service.type
