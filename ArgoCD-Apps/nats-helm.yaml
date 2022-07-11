@@ -1,24 +1,25 @@
+--- 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata:
+metadata: 
   name: nats-app
   namespace: default
-spec:
-  destination:
+spec: 
+  destination: 
     namespace: nats
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
   project: default
-  source:
-    helm:
-      parameters:
-       - name: service.type
-          value: "LoadBalancer"
+  source: 
     chart: bitnami
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 7.3.7
-  syncPolicy:
-    automated:
+    helm: 
+      parameters: 
+        - name: service.type
+          value: LoadBalancer
+    repoURL: "https://charts.bitnami.com/bitnami"
+    targetRevision: "7.3.7"
+  syncPolicy: 
+    automated: 
       prune: true
       selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
+    syncOptions: 
+      - CreateNamespace=true
