@@ -9,3 +9,9 @@
 - Deploy ArgoCD with a concept of app-of-apps to AKS
 - Deploy Grafana Loki and configure it for NATS, and start gathering logs
 - Configure ArgoCD to deploy custom app using your previously created helm charts to AKS you have created with terraform and downloading the image from ACR you created
+
+
+
+## Common fixes
+### Cached Terraform
+```bash git filter-branch -f --index-filter 'git rm --cached -r --ignore-unmatch .terraform/'
