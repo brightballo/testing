@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wikijs-app
+  name: nats-app
   namespace: default
 spec:
   destination:
-    namespace: wikijs
+    namespace: nats
     server: https://kubernetes.default.svc
   project: default
   source:
-#     helm:
-#       parameters:
-#        - name: build.enabled
-#           value: "false"
-    chart: wiki
-    repoURL: https://charts.js.wiki
-    targetRevision: 2.2.15
+    helm:
+      parameters:
+       - name: service.type
+          value: "LoadBalancer"
+    chart: bitnami
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 7.3.7
   syncPolicy:
     automated:
       prune: true
