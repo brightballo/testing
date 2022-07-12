@@ -16,7 +16,7 @@ spec:
         - name: service.type
           value: LoadBalancer
     repoURL: "https://nats-io.github.io/k8s/helm/charts/"
-#     targetRevision: "7.3.2"
+    targetRevision: "0.17.1"
   syncPolicy: 
     automated: 
       prune: true
