@@ -16,7 +16,6 @@ spec:
           tag: c6a64e4a06084a54845c912d9e93bc889394262b
         ingress:
           enabled: true
-          className: nginx
           annotations:
             kubernetes.io/ingress.class: nginx
           hosts:
