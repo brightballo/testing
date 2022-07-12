@@ -13,7 +13,7 @@ spec:
       parameters:
        - name: service.type
          value: "LoadBalancer"
-    chart: grafana-loki
+    chart: loki
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 2.13.1
   syncPolicy:
