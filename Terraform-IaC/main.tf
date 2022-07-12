@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "devops-playground" {
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = "DPRegistryHS"
+  name                = "dpregistryhs"
   resource_group_name = azurerm_resource_group.devops-playground.name
   location            = azurerm_resource_group.devops-playground.location
   sku                 = "Premium"
