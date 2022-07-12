@@ -15,7 +15,7 @@ spec:
          value: "LoadBalancer"
     chart: grafana
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 7.9.10
+    targetRevision: 6.32.2
   syncPolicy:
     automated:
       prune: true
