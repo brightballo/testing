@@ -9,18 +9,14 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    helm: 
-      parameters: 
-        - name: image.repository
-          value: dpregistryhs.azurecr.io/flask-app
-        - name: image.tag
-          value: c6a64e4a06084a54845c912d9e93bc889394262b
-        - name: ingress.enabled
-          value: true
-        - name: ingress.className
-          value: nginx
+    helm:
       values: |
+        image:
+          repository: dpregistryhs.azurecr.io/flask-app
+          tag: c6a64e4a06084a54845c912d9e93bc889394262b
         ingress:
+          enabled: true
+          className: nginx
           annotations:
             kubernetes.io/ingress.class: nginx
           hosts:
