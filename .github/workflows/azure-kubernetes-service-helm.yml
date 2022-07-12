@@ -149,7 +149,7 @@ jobs:
         overrides: |     
           image.tag: ${{ github.sha }}
           image.repository: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}
-        helm-version: '0.1.0' 
+        helm-version: 'latest' 
       id: bake
 
     # Deploys application based on manifest files from previous step
