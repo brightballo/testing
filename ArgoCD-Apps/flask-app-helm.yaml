@@ -24,7 +24,7 @@ spec:
           annotations:
             kubernetes.io/ingress.class: nginx
           hosts:
-            - host: devops-playground.timtechtu.dev
+            - host: devops-playground.timtech4u.dev
               paths:
                 - path: /
                   pathType: Prefix
