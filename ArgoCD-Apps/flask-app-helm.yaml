@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/Timtech4u/devops-playground
+    repoURL: git@github.com:Timtech4u/devops-playground.git
     targetRevision: main
     path: ./Flask-App-HelmChart
   syncPolicy:
