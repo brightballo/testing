@@ -39,13 +39,13 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: "your-azure-container-registry"
-  CONTAINER_NAME: "your-container-name"
-  RESOURCE_GROUP: "your-resource-group"
-  CLUSTER_NAME: "your-cluster-name"
-  IMAGE_PULL_SECRET_NAME: "your-image-pull-secret-name"
-  CHART_PATH: "your-chart-path"
-  CHART_OVERRIDE_PATH: "your-chart-override-path"
+  AZURE_CONTAINER_REGISTRY: "DPRegistryHS"
+  CONTAINER_NAME: "flask-app"
+  RESOURCE_GROUP: "devops-playground"
+  CLUSTER_NAME: "devops-playground-cluster"
+  IMAGE_PULL_SECRET_NAME: "acr-secret"
+  CHART_PATH: "Flask-App-HelmChart"
+  CHART_OVERRIDE_PATH: "Flask-App-HelmChart"
 
 jobs:
   buildImage:
