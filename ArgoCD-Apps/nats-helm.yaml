@@ -10,13 +10,13 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source: 
-    chart: bitnami/nats
+    chart: nats/nats
     helm: 
       parameters: 
         - name: service.type
           value: LoadBalancer
-    repoURL: "https://charts.bitnami.com/bitnami"
-    targetRevision: "7.3.2"
+    repoURL: "https://nats-io.github.io/k8s/helm/charts/"
+#     targetRevision: "7.3.2"
   syncPolicy: 
     automated: 
       prune: true
