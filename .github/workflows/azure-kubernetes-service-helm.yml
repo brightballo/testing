@@ -39,7 +39,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: "DPRegistryHS"
+  AZURE_CONTAINER_REGISTRY: "dpregistryhs"
   CONTAINER_NAME: "flask-app"
   RESOURCE_GROUP: "devops-playground"
   CLUSTER_NAME: "devops-playground-cluster"
