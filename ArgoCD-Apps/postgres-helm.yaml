@@ -13,6 +13,8 @@ spec:
       parameters:
        - name: primary.service.type
          value: "LoadBalancer"
+       - name: global.postgresql.postgresqlPassword
+         value: timo123
     chart: postgresql
     repoURL: https://charts.bitnami.com/bitnami
     targetRevision: 11.6.15
