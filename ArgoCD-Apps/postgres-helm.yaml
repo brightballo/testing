@@ -11,7 +11,7 @@ spec:
   source:
     helm:
       parameters:
-       - name: service.type
+       - name: primary.service.type
          value: "LoadBalancer"
     chart: postgresql
     repoURL: https://charts.bitnami.com/bitnami
