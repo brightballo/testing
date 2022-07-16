@@ -12,6 +12,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+env:          
+ FOO: "BAR"
+ USERNAME: "CHANGEME"
+ PASWORD: "CHANGEME"
+ 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

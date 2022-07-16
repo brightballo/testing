@@ -11,6 +11,9 @@ spec:
   source:
     helm:
       values: |
+        env:
+          USERNAME: "timuser"
+          PASWORD: "mgpassword"
         image:
           repository: dpregistryhs.azurecr.io/flask-app
           tag: c6a64e4a06084a54845c912d9e93bc889394262b
