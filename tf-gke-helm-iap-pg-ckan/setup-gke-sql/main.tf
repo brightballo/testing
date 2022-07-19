@@ -12,7 +12,7 @@ terraform {
 
 variable "pg_instance_name" {
   type    = string
-  default = "dev-workloads-db"
+  default = "dev-workloads-pg-db"
 }
 
 variable "root_password" {
