@@ -77,6 +77,15 @@ resource "helm_release" "ckan" {
     value = var.root_password
   }
 
+  set {
+    name  = "MasterDBPass"
+    value = var.root_password
+  }
+
+  values = [
+    "${file("ckan_values.yaml")}"
+  ]
+
   depends_on = [
     google_sql_database_instance.main
   ]
