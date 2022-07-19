@@ -1,0 +1,8 @@
+ingress:
+  enabled: true
+  className: nginx
+  host: dev-workloads.timtech4u.dev
+  paths:
+    - path: /
+      pathType: Prefix
+      port: 80
