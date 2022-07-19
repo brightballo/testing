@@ -82,9 +82,10 @@ resource "helm_release" "ckan" {
     value = var.root_password
   }
 
-  values = [
-    "${file("ckan_values.yaml")}"
-  ]
+# @TODO: Enable this after current issue is fixed
+#   values = [
+#     "${file("ckan_values.yaml")}"
+#   ]
 
   depends_on = [
     google_sql_database_instance.main
