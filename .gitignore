@@ -1,3 +1,8 @@
 Terraform-IaC/.terraform
 Terraform-IaC/.terraform.lock.hcl
 Terraform-IaC/terraform.tfstate.backup
+
+tf-gke-helm-iap-pg-ckan/.terraform
+tf-gke-helm-iap-pg-ckan/.terraform.lock.hcl
+tf-gke-helm-iap-pg-ckan/terraform.tfstate.backup
+
