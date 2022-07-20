@@ -6,7 +6,7 @@ provider "google" {
 terraform {
   backend "gcs" {
     bucket = "dev-workloads-terraform-state"
-    prefix  = "workloads"
+    prefix = "workloads"
   }
 }
 
@@ -14,6 +14,11 @@ provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
   }
+}
+
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
 }
 
 # Helm Installation
@@ -35,7 +40,7 @@ resource "helm_release" "ckan" {
 
   set {
     name  = "DBHost"
-    value = google_sql_database_instance.main.public_ip_address
+    value = var.database_ip
   }
 
   set {
@@ -53,14 +58,39 @@ resource "helm_release" "ckan" {
     value = var.root_password
   }
 
-# @TODO: Enable this after current issue is fixed
-#   values = [
-#     "${file("ckan_values.yaml")}"
-#   ]
+  # @TODO: Enable this after current issue is fixed
+  #   values = [
+  #     "${file("ckan_values.yaml")}"
+  #   ]
 
-  depends_on = [
-    google_sql_database_instance.main,
-    google_container_cluster.primary
-  ]
 }
 
+resource "kubernetes_ingress" "ingress" {
+  metadata {
+    labels = {
+      app = "ckan-ingress"
+    }
+    name      = "ckan-ingress"
+    namespace = "default"
+    annotations = {
+      "kubernetes.io/ingress.class" : "gce"
+      "networking.gke.io/managed-certificates" : "managed-cert"
+      "kubernetes.io/ingress.global-static-ip-name" : "ipv4-address"
+    }
+  }
+
+  spec {
+    rule {
+      host = "ckan.timtech4u.dev"
+      http {
+        path {
+          path = "/"
+          backend {
+            service_name = "ckan-ingress"
+            service_port = 80
+          }
+        }
+      }
+    }
+  }
+}

@@ -18,3 +18,8 @@ variable "database_name" {
   default = "postgres"
 }
 
+variable "database_ip" {
+  type    = string
+  default = "34.171.31.188"
+}
+
