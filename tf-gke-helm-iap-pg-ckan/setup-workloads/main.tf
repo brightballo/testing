@@ -23,7 +23,7 @@ provider "kubernetes" {
 
 # Helm Installation
 resource "helm_release" "ckan" {
-  name = "ckan"
+  name = "ckan-app"
 
   repository = "https://keitaro-charts.storage.googleapis.com"
   chart      = "ckan"
@@ -33,30 +33,30 @@ resource "helm_release" "ckan" {
     value = "LoadBalancer" # creates public IP address
   }
 
-  # set {
-  #   name  = "MasterDBName"
-  #   value = var.database_name
-  # }
+  set {
+    name  = "MasterDBName"
+    value = var.database_name
+  }
 
-  # set {
-  #   name  = "DBHost"
-  #   value = var.database_ip
-  # }
+  set {
+    name  = "DBHost"
+    value = var.database_ip
+  }
 
-  # set {
-  #   name  = "MasterDBUser"
-  #   value = var.root_user
-  # }
+  set {
+    name  = "MasterDBUser"
+    value = var.root_user
+  }
 
-  # set {
-  #   name  = "MasterDBPass"
-  #   value = var.root_password
-  # }
+  set {
+    name  = "MasterDBPass"
+    value = var.root_password
+  }
 
-  # set {
-  #   name  = "MasterDBPass"
-  #   value = var.root_password
-  # }
+  set {
+    name  = "MasterDBPass"
+    value = var.root_password
+  }
 
   # @TODO: Enable this after current issue is fixed
   #   values = [
@@ -65,7 +65,7 @@ resource "helm_release" "ckan" {
 
 }
 
-resource "kubernetes_ingress" "ingress" {
+resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     labels = {
       app = "ckan-ingress"
@@ -85,8 +85,12 @@ resource "kubernetes_ingress" "ingress" {
         path {
           path = "/"
           backend {
-            service_name = "ckan-ingress"
-            service_port = 80
+            service {
+              name = "ckan-ingress"
+              port {
+                number = 80
+              }
+            }
           }
         }
       }
