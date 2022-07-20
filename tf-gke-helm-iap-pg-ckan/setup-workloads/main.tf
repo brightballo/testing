@@ -28,10 +28,8 @@ resource "helm_release" "ckan" {
   repository = "https://keitaro-charts.storage.googleapis.com"
   chart      = "ckan"
 
-  set {
-    name  = "service.type"
-    value = "LoadBalancer" # creates public IP address
-  }
+  namespace        = "ckan"
+  create_namespace = true
 
   set {
     name  = "MasterDBName"
@@ -58,17 +56,12 @@ resource "helm_release" "ckan" {
     value = var.root_password
   }
 
-  # @TODO: Enable this after current issue is fixed
-  #   values = [
-  #     "${file("ckan_values.yaml")}"
-  #   ]
-
 }
 
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     labels = {
-      app = "ckan-ingress"
+      app = "ckan-app"
     }
     name      = "ckan-ingress"
     annotations = {
