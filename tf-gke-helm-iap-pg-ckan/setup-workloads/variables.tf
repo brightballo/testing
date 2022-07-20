@@ -5,7 +5,7 @@ variable "pg_instance_name" {
 
 variable "root_user" {
   type    = string
-  default = "complexpassword"
+  default = "postgres"
 }
 
 variable "root_password" {
@@ -15,6 +15,11 @@ variable "root_password" {
 
 variable "database_name" {
   type    = string
-  default = "complexpassword"
+  default = "postgres"
+}
+
+variable "database_ip" {
+  type    = string
+  default = "34.171.31.188"
 }
 

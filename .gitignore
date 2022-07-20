@@ -6,3 +6,4 @@ tf-gke-helm-iap-pg-ckan/.terraform
 tf-gke-helm-iap-pg-ckan/.terraform.lock.hcl
 tf-gke-helm-iap-pg-ckan/terraform.tfstate.backup
 
+*terraform*
