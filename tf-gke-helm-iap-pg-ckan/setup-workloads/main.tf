@@ -17,6 +17,39 @@ provider "helm" {
 }
 
 
+resource "kubernetes_ingress_v1" "ingress" {
+  metadata {
+    labels = {
+      app = "ckan-app"
+    }
+    name      = "ckan-ingress"
+    annotations = {
+      "kubernetes.io/ingress.class" : "gce"
+      "networking.gke.io/managed-certificates" : "managed-cert"
+      "kubernetes.io/ingress.global-static-ip-name" : "ipv4-address"
+    }
+  }
+
+  spec {
+    rule {
+      host = "ckan.timtech4u.dev"
+      http {
+        path {
+          path = "/"
+          backend {
+            service {
+              name = "ckan-ingress"
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
@@ -56,37 +89,4 @@ resource "helm_release" "ckan" {
     value = var.root_password
   }
 
-}
-
-resource "kubernetes_ingress_v1" "ingress" {
-  metadata {
-    labels = {
-      app = "ckan-app"
-    }
-    name      = "ckan-ingress"
-    annotations = {
-      "kubernetes.io/ingress.class" : "gce"
-      "networking.gke.io/managed-certificates" : "managed-cert"
-      "kubernetes.io/ingress.global-static-ip-name" : "ipv4-address"
-    }
-  }
-
-  spec {
-    rule {
-      host = "ckan.timtech4u.dev"
-      http {
-        path {
-          path = "/"
-          backend {
-            service {
-              name = "ckan-ingress"
-              port {
-                number = 80
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }
