@@ -27,5 +27,5 @@ read input
 if [ "$input" == "yes" ]
 then
 echo "Proceeding to create sealed secrets..."
-kubeseal --raw --controller-name=sealed-secrets --controller-namespace=kube-system --name SERVICE_NAME --namespace NAMESPACE
+kubeseal --raw --controller-name=sealed-secrets --controller-namespace=kube-system --name ${SERVICE_NAME} --namespace ${NAMESPACE}
 fi
