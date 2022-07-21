@@ -12,7 +12,7 @@ variable "environment" {
 
 variable "iam_policies_arns"{
     type = list(string)
-    default = [ "arn:aws:iam::aws:policy/AmazonECS_FullAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+    default = ["arn:aws:iam::aws:policy/AmazonECS_FullAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess"]
 }
 
 variable "aws_profile" {
@@ -24,25 +24,25 @@ variable "aws_profile" {
 variable "aws_region" {
   description = "(Optional) AWS Region."
   type = string
-  default = " "
+  default = "eu-west-2"
 }
 
 variable "vpc_id" {
   type        = string
   description = "(Optional) VPC ID."
-  default     = " "
+  default     = "vpc-078060669a9352ae1"
 }
 
 variable "db_subnet_ids" {
   type        = list(string)
-  default     = []
+  default     = ["subnet-0d68eb7e1024f104f","subnet-064eee5eb373cf109","subnet-0474c3744e88b1051"]
   description = "List of subnets where the RDS database will be deployed"
 }
 
 variable "vpc_security_group_ids" {
   type        = list(string)
   description = "(Optional) Security group IDs to allow access to the VPC. It will be used only if vpc_id is set."
-  default     = []
+  default     = ["sg-017a38e633022eaa9"]
 }
 
 variable "vpc-cidr" {
