@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "mlflow_artifact_store" {
-  bucket = "${var.name}-s3"
+  bucket = "${var.name}2-s3"
 
   tags = {
-    Name        = "${var.name}-s3"
+    Name        = "${var.name}2-s3"
     Environment = "Dev"
   }
 }

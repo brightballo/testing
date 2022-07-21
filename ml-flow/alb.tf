@@ -1,5 +1,5 @@
 resource "aws_alb" "main" {
-  name            = "mllflow-fargate-load-balancer"
+  name            = "mlflow-fargate-load-balancer"
   subnets         = var.db_subnet_ids
   security_groups = var.vpc_security_group_ids
 }

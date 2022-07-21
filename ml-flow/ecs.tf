@@ -115,7 +115,7 @@ depends_on = [
 }
 
 resource "aws_cloudwatch_log_group" "mlflow" {
-  name              = "/aws/ecs/${var.name}"
+  name              = "/aws/ecs/${var.name}2"
   retention_in_days = 14
   tags              = var.tags
 }

@@ -12,12 +12,12 @@ resource "random_password" "mlflow_backend_store" {
 }
 
 resource "aws_db_subnet_group" "rds" {
-  name       = "${var.name}-rds-subnet-group"
+  name       = "${var.name}-rds-subnet-group2"
   subnet_ids = var.db_subnet_ids
 }
 
 resource "aws_security_group" "rds" {
-  name   = "${var.name}-rds"
+  name   = "${var.name}-rds2"
   vpc_id = var.vpc_id
   tags   = var.tags
 
@@ -37,7 +37,7 @@ resource "aws_security_group" "rds" {
 }
 
 resource "aws_rds_cluster" "mlflow_backend_store" {
-  cluster_identifier        = "${var.name}-rds"
+  cluster_identifier        = "${var.name}-rds2"
   engine                    = "aurora-mysql"
   engine_version            = "5.7.mysql_aurora.2.07.1"
   engine_mode               = "serverless"
