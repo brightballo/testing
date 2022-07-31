@@ -45,15 +45,15 @@ spec:
     syncOptions:
     - CreateNamespace=true
 ---
-# issuer.yaml  (requires cert-manager)
-apiVersion: cert-manager.k8s.cloudflare.com/v1
-kind: OriginIssuer
-metadata:
-  name: prod-issuer
-  namespace: cert-manager
-spec:
-  requestType: OriginECC
-  auth:
-    serviceKeyRef:
-      name: origin-ca-key
-      key: key
+# # issuer.yaml  (requires cert-manager)
+# apiVersion: cert-manager.k8s.cloudflare.com/v1
+# kind: OriginIssuer
+# metadata:
+#   name: prod-issuer
+#   namespace: cert-manager
+# spec:
+#   requestType: OriginECC
+#   auth:
+#     serviceKeyRef:
+#       name: origin-ca-key
+#       key: key
