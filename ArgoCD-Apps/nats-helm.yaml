@@ -11,10 +11,6 @@ spec:
   project: default
   source: 
     chart: nats
-    helm: 
-      parameters: 
-        - name: service.type
-          value: LoadBalancer
     repoURL: "https://nats-io.github.io/k8s/helm/charts/"
     targetRevision: "0.17.1"
   syncPolicy: 

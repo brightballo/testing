@@ -9,10 +9,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    helm:
-      parameters:
-       - name: service.type
-         value: "LoadBalancer"
     chart: loki
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 2.13.1

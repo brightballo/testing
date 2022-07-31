@@ -5,7 +5,7 @@ metadata:
   name: cert-manager
   namespace: default
 spec:
-project: default
+  project: default
   source:
     repoURL: 'https://charts.jetstack.io'
     targetRevision: v1.9.1
@@ -22,4 +22,3 @@ project: default
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-
