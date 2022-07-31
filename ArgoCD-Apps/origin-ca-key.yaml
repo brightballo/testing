@@ -5,4 +5,4 @@ kind: Secret
 metadata:
   creationTimestamp: null
   name: origin-ca-key
-  namespace: default
+  namespace: cert-manager
