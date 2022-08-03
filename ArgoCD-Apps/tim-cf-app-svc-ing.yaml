@@ -62,11 +62,10 @@ spec:
                 name: hello-svc
                 port:
                   number: 80
-  # tls:
-  #   # specifying a host in the TLS section will tell cert-manager what
-  #   # DNS SANs should be on the created certificate.
-  #   - hosts:
-  #       - tim-cf.devops-playground.com
-  #     # cert-manager will create this secret
-  #     secretName: tim-tls
-#@TODO: Enable ^ after install prod-issuer
+  tls:
+    # specifying a host in the TLS section will tell cert-manager what
+    # DNS SANs should be on the created certificate.
+    - hosts:
+        - tim-cf.devops-playground.com
+      # cert-manager will create this secret
+      secretName: tim-tls
