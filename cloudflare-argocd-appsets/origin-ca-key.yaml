@@ -3,6 +3,16 @@ data:
   key: djEuMC1mZWE5MjZmNWVmYjNkNTEwNmQ2ZDgxZGYtMmE1MjMxOGJhYzAzZDBiMTAzY2Q1YWM3YTQ5NWJjN2Q3ZDI2NjQ5Mzc1NTU0Y2ViZTI4YTVjODBhMWZiODY5ZjRlYzM5YTczNmM3MzFiMjk5NWFhN2JkOWM0MDhjNmQzMmVmZjMwZDI0MTkyYzIxMmEzM2Y0NzljODk3MGVkZDQ3NDliNmQzMmRjM2EwOTdl
 kind: Secret
 metadata:
-  creationTimestamp: null
   name: origin-ca-key
-  namespace: cert-manager
+---
+# issuer.yaml  (requires cert-manager)
+apiVersion: cert-manager.k8s.cloudflare.com/v1
+kind: OriginIssuer
+metadata:
+  name: prod-issuer
+spec:
+  requestType: OriginECC
+  auth:
+    serviceKeyRef:
+      name: origin-ca-key
+      key: key
