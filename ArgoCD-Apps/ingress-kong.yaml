@@ -1,0 +1,21 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Ingress
+metadata:
+  name: ingress-kong
+  namespace: default
+spec:
+  destination:
+    namespace: ingress-kong
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: kong
+    repoURL: https://charts.bitnami.com/bitnami/
+    targetRevision: 6.3.28
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
