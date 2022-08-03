@@ -10,8 +10,8 @@ spec:
   project: default
   source:
     chart: kong
-    repoURL: https://charts.bitnami.com/bitnami/
-    targetRevision: 6.3.28
+    repoURL: https://charts.konghq.com/
+    targetRevision: 2.11.0
   syncPolicy:
     automated:
       prune: true
