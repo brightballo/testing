@@ -1,23 +1,23 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: cloudflare-origin-keys
-spec:
-  generators:
-  - list:
-      elements:
-      - namespace: default
-      - namespace: ingress-nginx
-  template:
-    metadata:
-      name: '{{namespace}}-cloudflare-origin'
-      namespace: {{namespace}}
-    spec:
-      project: default
-      source:
-        repoURL: git@github.com:Timtech4u/devops-playground.git
-        targetRevision: main
-        path: ./cloudflare-argocd-appsets
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: {{namespace}}
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: cloudflare-origin-keys
+# spec:
+#   generators:
+#   - list:
+#       elements:
+#       - namespace: default
+#       - namespace: ingress-nginx
+#   template:
+#     metadata:
+#       name: '{{namespace}}-cloudflare-origin'
+#       namespace: {{namespace}}
+#     spec:
+#       project: default
+#       source:
+#         repoURL: git@github.com:Timtech4u/devops-playground.git
+#         targetRevision: main
+#         path: ./cloudflare-argocd-appsets
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: {{namespace}}
