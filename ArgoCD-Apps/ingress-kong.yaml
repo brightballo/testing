@@ -1,20 +1,20 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: ingress-kong
-  namespace: default
-spec:
-  destination:
-    namespace: ingress-kong
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    chart: kong
-    repoURL: https://charts.konghq.com/
-    targetRevision: 2.11.0
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: ingress-kong
+#   namespace: default
+# spec:
+#   destination:
+#     namespace: ingress-kong
+#     server: https://kubernetes.default.svc
+#   project: default
+#   source:
+#     chart: kong
+#     repoURL: https://charts.konghq.com/
+#     targetRevision: 2.11.0
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
