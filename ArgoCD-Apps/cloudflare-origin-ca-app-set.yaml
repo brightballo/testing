@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: cloudflare-origin-keys
+  name: cf-origin-key-app-sets
 spec:
   generators:
   - list:
@@ -10,37 +10,14 @@ spec:
       - ns: ingress-kong
   template:
     metadata:
-      name: '{{ns}}-guestbook'
+      name: '{{namespace}}-cf-origin-key'
+      namespace: {{namespace}}
     spec:
       project: default
       source:
-        repoURL: https://github.com/argoproj/argo-cd.git
-        targetRevision: HEAD
-        path: applicationset/examples/list-generator/guestbook/engineering-dev
+        repoURL: git@github.com:Timtech4u/devops-playground.git
+        targetRevision: main
+        path: ./cloudflare-argocd-appsets
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ns}}'
-
-# apiVersion: argoproj.io/v1alpha1
-# kind: ApplicationSet
-# metadata:
-#   name: cloudflare-origin-keys
-# spec:
-#   generators:
-#   - list:
-#       elements:
-#       - ns: default
-#       - ns: ingress-kong
-#   template:
-#     metadata:
-#       name: '{{namespace}}-cloudflare-origin'
-#       namespace: {{namespace}}
-#     spec:
-#       project: default
-#       source:
-#         repoURL: git@github.com:Timtech4u/devops-playground.git
-#         targetRevision: main
-#         path: ./cloudflare-argocd-appsets
-#       destination:
-#         server: https://kubernetes.default.svc
-#         namespace: '{{namespace}}'
+        namespace: '{{namespace}}'
