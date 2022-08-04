@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       name: '{{namespace}}-cf-origin-key'
-      namespace: {{namespace}}
+      namespace: '{{namespace}}'
     spec:
       project: default
       source:
