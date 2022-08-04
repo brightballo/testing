@@ -6,8 +6,8 @@ spec:
   generators:
   - list:
       elements:
-      - ns: default
-      - ns: ingress-kong
+      - namespace: default
+      - namespace: ingress-kong
   template:
     metadata:
       name: '{{namespace}}-cf-origin-key'
