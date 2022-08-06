@@ -1,38 +1,40 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: flask-app
-#   namespace: default
-# spec:
-#   destination:
-#     namespace: default
-#     server: https://kubernetes.default.svc
-#   project: default
-#   source:
-#     helm:
-#       values: |
-#         env:
-#           USERNAME: "timuser"
-#           PASWORD: "mgpassword"
-#         image:
-#           repository: us.gcr.io/dev-workloads/flask-docker/flask-app
-#           tag: 03479b96eaa0e6901157dcedd944b76f103279b9
-#         # ingress:
-#         #   enabled: true
-#         #   annotations:
-#         #     kubernetes.io/ingress.class: nginx
-#         #   hosts:
-#         #     - host: devops-playground.timtech4u.dev
-#         #       paths:
-#         #         - path: /
-#         #           pathType: Prefix
-#         #           port: 8080
-#     repoURL: git@github.com:Timtech4u/devops-playground.git
-#     targetRevision: main
-#     path: ./Flask-App-HelmChart
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flask-app
+  namespace: default
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      values: |
+        env:
+          USERNAME: "timuser"
+          PASWORD: "mgpassword"
+        image:
+          repository: us.gcr.io/dev-workloads/flask-docker/flask-app
+          tag: 03479b96eaa0e6901157dcedd944b76f103279b9
+        # ingress:
+        #   enabled: true
+        #   annotations:
+        #     kubernetes.io/ingress.class: nginx
+        #   hosts:
+        #     - host: devops-playground.timtech4u.dev
+        #       paths:
+        #         - path: /
+        #           pathType: Prefix
+        #           port: 8080
+    repoURL: git@github.com:Timtech4u/devops-playground.git
+    targetRevision: main
+    path: ./Flask-App-HelmChart
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
