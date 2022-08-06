@@ -1,36 +1,36 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: external-dns-new
-  namespace: default
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: external-dns
-  project: default
-  syncPolicy:
-    automated:
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-  source:
-    repoURL: https://kubernetes-sigs.github.io/external-dns/
-    chart: external-dns
-    targetRevision: "1.10.1"
-    helm:
-      releaseName: external-dns
-      values: |
-        extraArgs:
-          - --cloudflare-proxied
-        domainFilters:
-          - devops-playground.com
-        provider: cloudflare
-        sources:
-          - ingress  # service is also possible
-        env:
-          - name: CF_API_KEY
-            value: "59baec324b90ee13e139553f2f8f797a1af13"
-          - name: CF_API_EMAIL
-            value: "timothyolaleke@gmail.com"
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: external-dns-new
+#   namespace: default
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     server: 'https://kubernetes.default.svc'
+#     namespace: external-dns
+#   project: default
+#   syncPolicy:
+#     automated:
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#   source:
+#     repoURL: https://kubernetes-sigs.github.io/external-dns/
+#     chart: external-dns
+#     targetRevision: "1.10.1"
+#     helm:
+#       releaseName: external-dns
+#       values: |
+#         extraArgs:
+#           - --cloudflare-proxied
+#         domainFilters:
+#           - devops-playground.com
+#         provider: cloudflare
+#         sources:
+#           - ingress  # service is also possible
+#         env:
+#           - name: CF_API_KEY
+#             value: "59baec324b90ee13e139553f2f8f797a1af13"
+#           - name: CF_API_EMAIL
+#             value: "timothyolaleke@gmail.com"
