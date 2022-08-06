@@ -6,3 +6,8 @@
 - Deploy Image on Cloud (GCP/AWS)
 - Multi Stage builds in Docker (w React App)
 - Docker compose to run multiple images (Image1: App, Image2: Web Server)
+
+#### Take home (Reward - Get a free domain)
+- Create a Dockerfile for any app of your choice
+- Build and push the Docker image to GCR
+- Deploy the App to Cloud Run
