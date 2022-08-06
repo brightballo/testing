@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: external-dns-new
   namespace: default
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     server: 'https://kubernetes.default.svc'
@@ -32,6 +34,3 @@ spec:
             value: "59baec324b90ee13e139553f2f8f797a1af13"
           - name: CF_API_EMAIL
             value: "timothyolaleke@gmail.com"
-
-
-#alt -> https://stackoverflow.com/questions/70784156/external-dns-registers-private-ip-with-cloudflare-instead-of-public-ip
