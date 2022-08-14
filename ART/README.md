@@ -1,6 +1,6 @@
 ## DevOps 
 
-### Day 1
+### Month 1
 - Docker 
 - Build a Docker Image
 - Deploy Image on Cloud (GCP/AWS)
