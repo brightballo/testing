@@ -9,6 +9,7 @@
 - Docker compose to run multiple images (Image1: App, Image2: Web Server)
 
 #### Take home (Reward - Get a free domain)
-- Create a Dockerfile for any app of your choice
-- Build and push the Docker image to GCR
-- Deploy the App to Cloud Run
+- [X] Create a Dockerfile for any app of your choice
+- [X] Build and push the Docker image to GCR
+- [X] Deploy the App to Cloud Run
+- [] Set up CI/CD for your apps
