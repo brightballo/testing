@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-apps
+  namespace: argocd
+spec:
+  destination:
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:Timtech4u/devops-playground.git
+    targetRevision: main
+    path: new-argocd-apps/monitoring-apps
+    
