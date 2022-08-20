@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-managed-cert-ingress
+  namespace: argocd
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: ipv4-address
+    networking.gke.io/managed-certificates: argocd-tls-cert
+    kubernetes.io/ingress.class: "gce"
+spec:
+  defaultBackend:
+    service:
+      name: argocd-server
+      port:
+        number: 80
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: argocd-tls-cert
+  namespace: argocd
+spec:
+  domains:
+    - argocd.devops-playground.com
