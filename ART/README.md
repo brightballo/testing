@@ -12,4 +12,5 @@
 - [X] Create a Dockerfile for any app of your choice
 - [X] Build and push the Docker image to GCR
 - [X] Deploy the App to Cloud Run
-- [ ] Set up CI/CD for your apps
+- [X] Set up CI/CD for your apps
+- [X] Configure Domain mapping
