@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+concurrency: production
 jobs:
   Patch:
     runs-on: ubuntu-latest
