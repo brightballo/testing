@@ -17,3 +17,25 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
         DRY_RUN: true
+    
+    - name: echo new tag
+      run: |
+        echo "The next tag version will be: ${{ steps.AutoTagger.outputs.new_tag }}"
+    - name: echo tag
+      run: |
+        echo "The current tag is: ${{ steps.AutoTagger.outputs.tag }}"
+    - name: echo part
+      run: |
+        echo "The version increment was: ${{ steps.AutoTagger.outputs.part }}"
+        
+#     Build and customize here
+#     If it fails, tagging won't happen
+
+    - name: Minor version for each merge
+      id: postBuildTag
+      uses: anothrNick/github-tag-action@1.36.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
+
+
