@@ -32,11 +32,11 @@ jobs:
 #     Build and customize here
 #     If it fails, tagging won't happen
 
-    - name: Minor version for each merge
-      id: postBuildTag
-      uses: anothrNick/github-tag-action@1.36.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: true
+#     - name: Minor version for each merge
+#       id: postBuildTag
+#       uses: anothrNick/github-tag-action@1.36.0
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         WITH_V: true
 
 
