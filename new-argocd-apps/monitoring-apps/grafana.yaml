@@ -8,7 +8,7 @@ metadata:
 spec:
   destination:
     name: in-cluster
-    namespace: monitoring
+    namespace: argocd
   project: default
   source:
     chart: grafana
