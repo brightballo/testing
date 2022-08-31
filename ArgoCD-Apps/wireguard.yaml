@@ -11,7 +11,7 @@ metadata:
   name: pv-claim-wireguard 
   namespace: wireguard
 spec:
-  storageClassName: "standard"
+  storageClassName: "gp2"
   accessModes:
     - ReadWriteOnce
   resources:
