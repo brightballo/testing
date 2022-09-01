@@ -55,5 +55,5 @@ jobs:
       uses: clowdhaus/argo-cd-action/@v1.12.1
       with:
         command: app set root
-        options: -p image.tag=${{steps.AutoTagger.outputs.new_tag}}
+        options: --revision ${{steps.AutoTagger.outputs.new_tag}}
 
