@@ -43,11 +43,6 @@ jobs:
         command: login ${{ env.argocd_url }}
         options: --insecure --password ${{ env.argocd_password }} --username ${{ env.argocd_username }}
         
-    - name: ArgoCD Deploy
-      uses: clowdhaus/argo-cd-action/@v1.12.1
-      with:
-        command: app set root
-        options: -p image.tag=${{steps.AutoTagger.outputs.new_tag}}
         
     - name: Minor version for each merge
       id: postBuildTag
@@ -55,5 +50,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
-
+    
+    - name: ArgoCD Deploy
+      uses: clowdhaus/argo-cd-action/@v1.12.1
+      with:
+        command: app set root
+        options: -p image.tag=${{steps.AutoTagger.outputs.new_tag}}
 
