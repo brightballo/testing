@@ -32,6 +32,23 @@ jobs:
 #     Build and customize here
 #     If it fails, tagging won't happen
 
+    - name: ArgoCD login
+      uses: clowdhaus/argo-cd-action/@v1.12.1
+      env:
+        argocd_url: "http://a372ed7ee9ba64014bbb2d969be24782-327280093.eu-west-2.elb.amazonaws.com/"
+        argocd_username: "admin"
+        argocd_password: "JjWgEuhA4MCZugpw"
+      id: argocd_login
+      with:
+        command: login ${{ env.argocd_url }}
+        options: --insecure --password ${{ env.argocd_password }} --username ${{ env.argocd_username }}
+        
+    - name: ArgoCD Deploy
+      uses: clowdhaus/argo-cd-action/@v1.12.1
+      with:
+        command: app set root
+        options: -p image.tag=${{steps.AutoTagger.outputs.new_tag}}
+        
     - name: Minor version for each merge
       id: postBuildTag
       uses: anothrNick/github-tag-action@1.36.0
