@@ -35,7 +35,7 @@ jobs:
     - name: ArgoCD login
       uses: clowdhaus/argo-cd-action/@v1.12.1
       env:
-        argocd_url: "a372ed7ee9ba64014bbb2d969be24782-327280093.eu-west-2.elb.amazonaws.com/"
+        argocd_url: "a372ed7ee9ba64014bbb2d969be24782-327280093.eu-west-2.elb.amazonaws.com"
         argocd_username: "admin"
         argocd_password: "JjWgEuhA4MCZugpw"
       id: argocd_login
