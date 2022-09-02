@@ -16,7 +16,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: default-domain
-  namespace: knative-serving
+  namespace: knative
   labels:
     app: "default-domain"
     app.kubernetes.io/component: default-domain-job
@@ -77,7 +77,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: default-domain-service
-  namespace: knative-serving
+  namespace: knative
   labels:
     app: default-domain
     app.kubernetes.io/component: default-domain-job
