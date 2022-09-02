@@ -20,7 +20,7 @@ jobs:
         env:
           name: "base"
           repo: "git@github.com:Timtech4u/devops-playground.git"
-          path: "ArgoCD Apps"
+          path: "ArgoCD-Apps"
           dest-namespace: "argocd"
           dest-server: "https://kubernetes.default.svc"
           sync-policy: "auto" 
