@@ -1,0 +1,23 @@
+name: ArgoCD login
+id: argocd_login
+uses: clowdhaus/argo-cd-action/@v1.12.1
+env:
+  argocd_url: "a372ed7ee9ba64014bbb2d969be24782-327280093.eu-west-2.elb.amazonaws.com"
+  argocd_username: "admin"
+  argocd_password: "JjWgEuhA4MCZugpw"
+with:
+  command: login ${{ env.argocd_url }}
+  options: --insecure --password ${{ env.argocd_password }} --username ${{ env.argocd_username }}
+
+- name: ArgoCD create app
+  uses: clowdhaus/argo-cd-action/@v1.12.1
+  env:
+    name: "base"
+    repo: "git@github.com:Timtech4u/devops-playground.git"
+    path: "ArgoCD Apps"
+    dest-namespace: "argocd"
+    dest-server: "https://kubernetes.default.svc"
+    sync-policy: "auto" 
+  with:
+    command: app create $name
+    options: --repo $repo --path $path --dest-namespace $dest-namespace --dest-server $dest-server --sync-policy $sync-policy
