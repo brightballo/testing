@@ -25,5 +25,5 @@ jobs:
           dest-server: "https://kubernetes.default.svc"
           sync-policy: "auto" 
         with:
-          command: app create $name
-          options: --repo $repo --path $path --dest-namespace $dest-namespace --dest-server $dest-server --sync-policy $sync-policy
+          command: app create ${{ env.name }}
+          options: --repo ${{ env.repo }} --path ${{ env.path }} --dest-namespace ${{ env.dest-namespace }} --dest-server ${{ env.dest-server }} --sync-policy ${{ env.sync-policy }}
