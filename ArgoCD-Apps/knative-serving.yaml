@@ -30,9 +30,9 @@ spec:
     # configure networking layer - options are Kourier/Istio/Contour
     network:
       ingress-class: "kourier.ingress.networking.knative.dev"
-    # configure DNS 
-    domain:
-      "knative.devops-playground.com": ""
+#     # configure DNS # SWITCHED TO USING SSLIP.IO 
+#     domain:
+#       "knative.devops-playground.com": ""
 ---      
 # Additional Manifests for KNative Serving
 # Copyright 2022 The Tekton Authors
