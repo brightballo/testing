@@ -1,21 +1,21 @@
 # Simple Hello World App deployed on KNative Serving
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: hello
-  annotations:
-    # the Service FQDN will become hello-world.{default-domain}
-    custom-hostname: hello-world
-spec:
-  template:
-    spec:
-      containers:
-        - image: gcr.io/knative-samples/helloworld-go
-          ports:
-            - containerPort: 8080
-          env:
-            - name: TARGET
-              value: "World"
+# apiVersion: serving.knative.dev/v1
+# kind: Service
+# metadata:
+#   name: hello
+#   annotations:
+#     # the Service FQDN will become hello-world.{default-domain}
+#     custom-hostname: hello-world
+# spec:
+#   template:
+#     spec:
+#       containers:
+#         - image: gcr.io/knative-samples/helloworld-go
+#           ports:
+#             - containerPort: 8080
+#           env:
+#             - name: TARGET
+#               value: "World"
 ---
 apiVersion: operator.knative.dev/v1beta1
 kind: KnativeServing
