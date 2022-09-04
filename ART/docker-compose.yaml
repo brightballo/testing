@@ -1,0 +1,34 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:latest
+        container_name: denver_nqinix_1
+        depends_on:
+            - flask
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/defult.conf
+ #       networks:
+  #          - my-network
+        ports:
+            - 80:80
+
+    flask:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: flask:latest
+        container_name: flask-app
+        volumes:
+            - ./:/code/
+        environment:
+            - FLASK_APP=main.py
+        command: python main.py
+        networks:
+            my-network:
+                aliases:
+                    - FLASK_APP
+        ports:
+            - 8080:5000
+
+#networks:
+#    my-network
