@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: firefly
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: oci://ghcr.io/hyperledger/helm/
+    targetRevision: 0.2.0
+    helm:
+      values: |
+        core:
+          service:
+            type: LoadBalancer
+    chart: firefly
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
