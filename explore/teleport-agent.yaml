@@ -14,7 +14,7 @@ spec:
     helm:
       values: |
         proxyAddr: timtech4u.teleport.sh:443
-        authToken: ee3dd8d554231f38e9fcf39c7340f5bd
+        authToken: 481ce0516d57de39188e2cc3c4bce7a5
         roles: app
         apps:
         - name: demo-app
