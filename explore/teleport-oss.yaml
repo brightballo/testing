@@ -17,7 +17,7 @@ spec:
         clusterName: teleport.devops-playground.org
         acme: true 
         acmeEmail: admin@devops-playground.org  
-  project: vpn
+  project: default
   syncPolicy:
     automated:
       prune: true
