@@ -20,7 +20,7 @@ spec:
         - name: demo-app
           uri: http://demo-app.default.svc.cluster.local:8080
         - name: argocd
-          uri: http://argocd-server.default.svc.cluster.local:443            
+          uri: http://argocd-server.default.svc.cluster.local:80
   project: default
   syncPolicy:
     automated:
