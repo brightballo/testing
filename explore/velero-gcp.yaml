@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero-gcp-backup
+  namespace: default
+spec:
+  destination:
+    namespace: velero
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    chart: velero
+    targetRevision: 2.32.1
+    helm:
+      values: |
+        upgradeCRDs: true
+        snapshotsEnabled: false
+        credentials:
+          useSecret: true
+          existingSecret: velero-service-account
+        initContainers:
+        - image: velero/velero-plugin-for-gcp:v1.4.0
+          name: velero-velero-plugin-for-gcp
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        configuration:
+          provider: gcp
+          backupStorageLocation:
+            name: default
+            bucket: velero-devops-playground
+            prefix: gke-backups
+        backupsEnabled: true
+        schedules:
+          demo-backup-daily:
+            disabled: false
+            labels:
+              app: demo-app
+            schedule: "0 5 * * *"
+            template:
+              ttl: "240h"
+              includedNamespaces:
+              - default
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+# Create Kubernetes Secret for GCP Service Account
+apiVersion: v1
+kind: Secret
+metadata:
+  name: velero-service-account
+  namespace: velero
+type: Opaque
+data:
+  credentials: ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAiZGV2LXN0cmVldHMiLAogICJwcml2YXRlX2tleV9pZCI6ICI5Y2QxNzhhNDM2YzY3YjI0MTBjYjI4ZWVlYWIyMTA2ZjQyNzBiNWU2IiwKICAicHJpdmF0ZV9rZXkiOiAiLS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tXG5NSUlFdkFJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLWXdnZ1NpQWdFQUFvSUJBUUNpZHNlWlFUYkhZOUd4XG4rekRmcnhudmMwRUNYSFNCZ2hGT2xrVlJ4ajRRMVNCNXUyMkFadlMyR0xuME82ckJLWVBYMHNoUGdJMTZOdFg1XG4ybm5MRmduZmd2KzYrWHFNVGRXek1GRklKcU1PQ3BtMnhIMTZuRDFiRmI2cnJiNEtwZzZyZ3ZlNnNLU3hPSVRsXG43WTlpZzNKSk9PQW9CQlZ6RndQNGFjMWdvdVRWQUNvRHBaQjRFNmJ6RWw2MUYrdkhHSWtKUzVIdHZhRE5VaituXG5tWTU5SzBoYzZPLzRCT2pEVnFiT0VTdzlvVDRMcmxPQTNZc1dCVkU4NW5VblVJUDdWZmJWR3NYeFBNekZLbW1IXG5vWU5yamVremVBVUdyajBqRmVJcnc3MzZ0UWllQnlqZ1VGR3laNUZKSlh0ZmhzR0dncDMxTjVJSWFSdmFiUFNzXG5leWFhdlNjUEFnTUJBQUVDZ2dFQUV3R1lXanFCNFJPeGJZUDRkTUswWXduMXVnUDg4VVc1SnB0MzRwZ3huS0NDXG5XeHR0TlE5V1k1TkM5ZXFoRUZYK0FacThLbWpjcEVhVUE5WG1WN2J0VXNPdGpUOHdjZ2VORDVpQWVkTmpVZm8xXG5mMmMvVXIvQ2djeHFjUVV6YldWOTQ5eS9oSXl6eDdQWUFGb3BZeG9EbmNOVW5mblVWSkdGdW1NT1R0YmZ0SGRQXG5aZC8vVTF1azhERkhBY0Zid294bzJIQ1RlR2Q5K2xrdFRSZFJpR2p5MFhlRnJqRlBpcjRHQThZRi9IbXFVRUlIXG5QemJaMlZyL29pcDJza1hJUU1RYnJqaG5QMW0yYldmZUR6djhhV0xwcDgzRVZMc0lLMkhaRUhVakIraG56c0hEXG5LVDVYOU9oZ1Q4TkpLdVorUVVoY1dDTFMzWms0YUZlNlY4UFZ6d1RBY1FLQmdRRGxpcWpVdnVYVUtrK01HQ1dmXG5IZlpJT0VhV1Fadk8zQTZQcStSWk5Ca3Rlb2ZUUDRPLzRwdXZJaVRqQ1VMcTFVSjBHTUpoNW9nYW96bTF6YlpJXG5wb0VzYUpBYUhCdVo5Z2t0dDNhcTE1dkFiZGpxV1hZZVpWcDF2NDBQanhwb1pmWEY2QncyZ1RUVXk2S3JPSEZ5XG5Sa3FSSWFPOVdTRUhUbE1pUXNCU0dyaWwrUUtCZ1FDMU1Na0Jkb0FlbGFyWGxrb3FFbWdHV3hzWEZndkZJRVdyXG5UTGx0aGVRV0QvSHowK0p1NVFUTThIaVpINHQ1cFpraDZVRTVJNUx6VUhLV1FZTXMydkk1eEtlYXgwNi82U0Z6XG5xOFZhU1BtU0JyZTFRVXFGYnp0a1ZRakprSlhjVUxsWEhhNzVaS3lhR0JZSUFmY05uU2ZlVk1wang0MlpCUGUxXG5QMGtOTy92WFJ3S0JnRVJibDgzTGord3dNWUphQ3BJcFBSZmkwbnFhelVpOFZnWEpQZmFtd2p5OStjY2FhaVR4XG4ya1U4bU5tWC8zcXB5ZUdESWhnL3JCYXF0MXdDQ0IvNG5nMVlrbG1FTjJBUldraG9FNG5yTGJJUHhJSjk0K1JIXG5jTG9TTW5NSXZlZUxQYmNUV1p1TnZPc0dQY3BadzhjeFViR0k0QmRhZkxDTlRjcXRNRk1ETEN3WkFvR0FWMGpZXG5IQWRNOHU3Z3JSaHVROVE0SG8rMi9pa1ZwSEhHZmgzbzJkVDlLbytsMi9ML2lySnkzSk1mVll4M3NUTlFFS0VBXG5WWmxJaWtQLzMxaFI2OExSbTNpYjBSa2dXNXpnQzR2ODkyQmVNYlZndkVWbXM5OEF1bldvVlFsODEvUmZSSk05XG5IbEVjUU9OSGdiWUlvSnRMZ0hSU1J6enpmbnFCSmVRRnVnVmliYk1DZ1lBUDllTHgvTHpPQUQzMzhaYWlNT3FOXG5KRlRwUHQxNGFzMSt0bVFNSWlBU0JqQWtrVkxOcDJ4RVQzc0N3aFNENEpEK2xOUnVtNkxTYkIzdjJYRG1rNGVrXG5LYnk3bUkreWlyS2Rzc2VYRENLZzhWVWtTdmtoMkkvc0F6VUhocVpPTWgvK0NocTgya2hOZ1g1Yzc5SUlFZW9EXG5mNlVNMGw4bjdGSVFDRWFsSXNlWUNRPT1cbi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS1cbiIsCiAgImNsaWVudF9lbWFpbCI6ICI5NzI5ODQ0MTI2NTYtY29tcHV0ZUBkZXZlbG9wZXIuZ3NlcnZpY2VhY2NvdW50LmNvbSIsCiAgImNsaWVudF9pZCI6ICIxMDU4MDk1ODg0MDcxOTUwOTUyNDMiLAogICJhdXRoX3VyaSI6ICJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aCIsCiAgInRva2VuX3VyaSI6ICJodHRwczovL29hdXRoMi5nb29nbGVhcGlzLmNvbS90b2tlbiIsCiAgImF1dGhfcHJvdmlkZXJfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9vYXV0aDIvdjEvY2VydHMiLAogICJjbGllbnRfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9yb2JvdC92MS9tZXRhZGF0YS94NTA5Lzk3Mjk4NDQxMjY1Ni1jb21wdXRlJTQwZGV2ZWxvcGVyLmdzZXJ2aWNlYWNjb3VudC5jb20iCn0=
