@@ -8,9 +8,9 @@ jobs:
         id: argocd_login
         uses: clowdhaus/argo-cd-action/@v1.12.1
         env:
-          argocd_url: "a372ed7ee9ba64014bbb2d969be24782-327280093.eu-west-2.elb.amazonaws.com"
+          argocd_url: "argocd.devops-playground.com"
           argocd_username: "admin"
-          argocd_password: "JjWgEuhA4MCZugpw"
+          argocd_password: "RiEBfS0BiF0uuBWk"
         with:
           command: login ${{ env.argocd_url }}
           options: --insecure --password ${{ env.argocd_password }} --username ${{ env.argocd_username }}
@@ -20,7 +20,7 @@ jobs:
         env:
           name: "base"
           repo: "git@github.com:Timtech4u/devops-playground.git"
-          path: "ArgoCD-Apps"
+          path: "explore"
           dest-namespace: "argocd"
           dest-server: "https://kubernetes.default.svc"
           sync-policy: "auto" 

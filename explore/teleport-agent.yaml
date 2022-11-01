@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: teleport-agent-enterprise
+  namespace: default
+spec:
+  destination:
+    namespace: teleport-agent
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://charts.releases.teleport.dev
+    chart: teleport-kube-agent
+    targetRevision: 10.0.0
+    helm:
+      values: |
+        proxyAddr: timtech4u.teleport.sh:443
+        authToken: ee3dd8d554231f38e9fcf39c7340f5bd
+        roles: app
+        apps:
+        - name: demo-app
+          uri: http://demo-app.default.svc.cluster.local:8080     
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
