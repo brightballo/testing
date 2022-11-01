@@ -21,7 +21,7 @@ jobs:
           name: "base"
           repo: "git@github.com:Timtech4u/devops-playground.git"
           path: "explore"
-          dest-namespace: "argocd"
+          dest-namespace: "default"
           dest-server: "https://kubernetes.default.svc"
           sync-policy: "auto" 
         with:
