@@ -1,0 +1,21 @@
+name: Access ArgoCD URL via Teleport
+on: workflow_dispatch
+jobs:
+  Create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ArgoCD Login
+        id: argocd_login
+        uses: clowdhaus/argo-cd-action/@v1.12.1
+        env:
+          argocd_url: "argocd.timtech4u.teleport.sh"
+          argocd_username: "admin"
+          argocd_password: "RiEBfS0BiF0uuBWk"
+        with:
+          command: login ${{ env.argocd_url }}
+          options: --insecure --password ${{ env.argocd_password }} --username ${{ env.argocd_username }}
+
+      - name: ArgoCD list app
+        uses: clowdhaus/argo-cd-action/@v1.12.1
+        with:
+          command: app list
