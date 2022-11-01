@@ -1,0 +1,29 @@
+# GitHub Actions workflow to deploy to Minikube
+
+name: Minikube Deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag timtech4u/devops-playground:latest
+    - name: Push the Docker image
+      run: |
+        docker login docker.io -u timtech4u -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push timtech4u/devops-playground:latest
+    - name: Deploy to Minikube
+      run: |
+        minikube start --driver=docker
+        kubectl apply -f celery
+        kubectl apply -f django
+        kubectl apply -f postgres
+        kubectl apply -f redis
+        kubectl get all
+        minikube service list
+        minikube service devops-playground-service --url

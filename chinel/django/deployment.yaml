@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-challenge-web
+  labels:
+    app: devops-challenge-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-challenge-web
+  template:
+    metadata:
+      labels:
+        app: devops-challenge-web
+    spec:
+      containers:
+        - name: devops-challenge-web
+          imagePullPolicy: IfNotPresent
+          image: culnellie/devops_challenge_web:1.0
+          command: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+          ports:
+          - containerPort: 8000
+          env:
+            # - name: DJANGO_SETTINGS_MODULE
+            #   value: 'backend.settings.minikube'
+
+            - name: SECRET_KEY
+              value: "my-secret-key"
+
+            - name: POSTGRES_NAME
+              value: postgres
+
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+    # I'm not sure that we need these volumes, but they were included in the tutorial referenced at the beginning of this guide.
+
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/busybox
+
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: devops-challenge-web-service
+spec:
+  selector:
+    app: devops-challenge-web
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 80
+  type: LoadBalancer
