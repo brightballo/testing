@@ -1,0 +1,57 @@
+# Teleport Cluster
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: teleport-cluster-oss
+  namespace: default
+spec:
+  destination:
+    namespace: teleport-oss
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://charts.releases.teleport.dev
+    chart: teleport-cluster
+    targetRevision: 10.0.0
+    helm:
+      values: |
+        clusterName: teleport.devops-playground.org
+        acme: true 
+        acmeEmail: admin@devops-playground.org  
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+# Teleport Agent
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: teleport-agent-oss
+  namespace: default
+spec:
+  destination:
+    namespace: teleport-oss
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://charts.releases.teleport.dev
+    chart: teleport-kube-agent
+    targetRevision: 10.0.0
+    helm:
+      values: |
+        proxyAddr: teleport.devops-playground.org:443
+        authToken: ee3dd8d554231f38e9fcf39c7340f5bd
+        roles: app
+        apps:
+        - name: demo-app
+          uri: http://demo-app.default.svc.cluster.local:8080     
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      
