@@ -1,4 +1,4 @@
-name: Teleport Operations
+name: Teleport CICD
 on: workflow_dispatch
 jobs:
   Create:
