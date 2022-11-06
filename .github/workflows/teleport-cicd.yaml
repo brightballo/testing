@@ -20,10 +20,8 @@ jobs:
       shell: bash 
       env:
         SSH_KEY: ${{ secrets.TELEPORT_PRIVATE_KEY }}
-    #- run: ls ~/.ssh 
     - run: |
         echo "SSHing into remote node..." eval $(ssh-agent) chmod 400 ~/.ssh/githubactions ssh-add ~/.ssh/githubactions ssh -J ubuntu@cluster.example.com:3023 -p 3022 ubuntu@teleport-demo-app-server 'teleport version'
-    - run: echo "It works!"
     - name: ArgoCD Login
       id: argocd_login
       uses: clowdhaus/argo-cd-action/@v1.12.1
