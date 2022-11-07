@@ -15,9 +15,6 @@ spec:
       values: |
         upgradeCRDs: true
         snapshotsEnabled: false
-        credentials:
-          useSecret: true
-          existingSecret: velero-service-account
         initContainers:
         - image: velero/velero-plugin-for-aws:v1.4.1
           name: velero-velero-plugin-for-aws
