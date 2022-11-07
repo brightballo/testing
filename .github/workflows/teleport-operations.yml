@@ -1,0 +1,27 @@
+name: Teleport Operations
+on: workflow_dispatch
+jobs:
+  Create:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Configuring the environment." 
+        mkdir ~/.ssh 
+        cat >>~/.ssh/config <<EOF 
+        Host *
+          StrictHostKeyChecking no 
+          UserKnownHostsFile=/dev/null
+        EOF
+    - run: 'echo "$SSH_CERT" > ~/.ssh/githubactions-cert.pub'
+      shell: bash 
+      env:
+        SSH_CERT: ${{ secrets.TELEPORT_CERT }}
+    - run: 'echo "$SSH_KEY" > ~/.ssh/githubactions'
+      shell: bash 
+      env:
+        SSH_KEY: ${{ secrets.TELEPORT_PRIVATE_KEY }}
+    #- run: ls ~/.ssh 
+    - run: |
+        echo "SSHing into remote node..." eval $(ssh-agent) chmod 400 ~/.ssh/githubactions ssh-add ~/.ssh/githubactions ssh -J
+        ubuntu@cluster.example.com:3023 -p 3022 ubuntu@teleport-demo-app-server 'teleport version'
+    - run: echo "It works!"
