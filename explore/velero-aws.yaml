@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero-aws-backup
+  namespace: default
+spec:
+  destination:
+    namespace: velero
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    chart: velero
+    targetRevision: 2.32.1
+    helm:
+      values: |
+        upgradeCRDs: true
+        snapshotsEnabled: false
+        credentials:
+          useSecret: true
+          existingSecret: velero-service-account
+        initContainers:
+        - image: velero/velero-plugin-for-aws:v1.4.1
+          name: velero-velero-plugin-for-aws
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        credentials:
+        secretContents:
+          cloud: |
+            [default]
+            aws_access_key_id=AKIA5ECOHMCRHEH3AANI
+            aws_secret_access_key=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         
+        configuration:
+          provider: aws
+          backupStorageLocation:
+            name: "aws"
+            provider: "velero.io/aws"
+            bucket: velero-devops-playground
+            default: true
+            config:
+              region: "us-west-2"
+          volumeSnapshotLocation:
+            name: aws
+            provider: velero.io/aws
+            config:
+              region: "us-west-2"
+        backupsEnabled: true
+        schedules:
+          demo-backup-daily:
+            disabled: false
+            labels:
+              app: demo-app
+            schedule: "0 5 * * *"
+            template:
+              ttl: "240h"
+              includedNamespaces:
+              - default
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

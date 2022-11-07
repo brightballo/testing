@@ -25,9 +25,9 @@ spec:
           - mountPath: /target
             name: plugins
         configuration:
-          provider: gcp
+          provider: "gcp"
           backupStorageLocation:
-            name: default
+            name: gcp
             bucket: velero-devops-playground
             prefix: gke-backups
         backupsEnabled: true
