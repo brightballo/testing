@@ -36,7 +36,7 @@ spec:
             disabled: false
             labels:
               app: demo-app
-            schedule: "0 5 * * *"
+            schedule: "* * * * *"
             template:
               ttl: "240h"
               includedNamespaces:
