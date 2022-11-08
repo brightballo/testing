@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka
+  namespace: default
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: kafka
+    targetRevision: "19.1.0"
+    helm:
+      releaseName: kafka
+      values: |
+        provisioning:
+          enabled: true
+          topics: ["test"] # https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml#L1487
+        externalAccess:
+          enabled: true
+          service:
+            type: LoadBalancer  
+ 
