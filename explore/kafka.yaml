@@ -22,9 +22,5 @@ spec:
       values: |
         provisioning:
           enabled: true
-          # topics: ["test"] # https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml#L1487
-        externalAccess:
-          enabled: true
-          service:
-            type: LoadBalancer  
+          # topics: ["test"] # https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml#L1487 
  
