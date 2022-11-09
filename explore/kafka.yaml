@@ -22,6 +22,4 @@ spec:
       values: |
         provisioning:
           enabled: true
-          # topics: [{"name":"test","replication-factor":"1"}] # https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml#L1487 
-          topics: ["test"]
- 
+          topics: [{"name":"test","replication-factor":"1"}] # https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml#L1487  
