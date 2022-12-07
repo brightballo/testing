@@ -1,0 +1,96 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  cancel-previous:
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+  unique_id:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate unique id
+        id: unique_id
+        run: echo "::set-output name=id::$(uuidgen)"
+    outputs:
+      unique_id: ${{ steps.unique_id.outputs.id }}
+  install-build-and-push:
+    runs-on: ubuntu-latest
+    needs: [cancel-previous, unique_id]
+    steps:
+      - name: Get GHA environment name
+        id: env_vars
+        run: |
+          echo "Running on branch ${{ github.ref }}"
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "::set-output name=aws_access_key_id::${{ secrets.DEV_AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=aws_secret_key::${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}"
+            echo "::set-output name=aws_region::${{ secrets.DEV_AWS_REGION }}"
+            echo "::set-output name=aws_ecr_repository::${{ secrets.DEV_ECR_REPOSITORY }}"
+            echo "::set-output name=argocd_url::${{ secrets.DEV_ARGOCD_URL }}"
+            echo "::set-output name=argocd_username::${{ secrets.DEV_ARGOCD_USERNAME }}"
+            echo "::set-output name=argocd_password::${{ secrets.DEV_ARGOCD_PASS }}"
+            echo "::set-output name=argocd_project::'iam-kyc-app'"
+            echo "::set-output name=argocd_tag::"iam-kyc-app-helm.image.tag"
+          elif [ "${{ github.ref }}" = "refs/heads/master" ]; then
+            echo "::set-output name=aws_access_key_id::${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=aws_secret_key::${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}"
+            echo "::set-output name=aws_region::${{ secrets.STAGING_AWS_REGION }}"
+            echo "::set-output name=aws_ecr_repository::${{ secrets.STAGING_ECR_REPOSITORY }}"
+            echo "::set-output name=argocd_url::${{ secrets.STAGING_ARGOCD_URL }}"
+            echo "::set-output name=argocd_username::${{ secrets.STAGING_ARGOCD_USERNAME }}"
+            echo "::set-output name=argocd_password::${{ secrets.STAGING_ARGOCD_PASS }}"
+            echo "::set-output name=argocd_project::'iam-kyc-app'"
+            echo "::set-output name=argocd_tag::"image.tag"
+          elif [ "${{ github.ref }}" = "refs/heads/engie-dev" ]; then
+            echo "::set-output name=aws_access_key_id::${{ secrets.DEV_AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=aws_secret_key::${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}"
+            echo "::set-output name=aws_region::${{ secrets.DEV_AWS_REGION }}"
+            echo "::set-output name=aws_ecr_repository::${{ secrets.DEV_ECR_REPOSITORY }}"
+            echo "::set-output name=argocd_url::${{ secrets.DEV_ARGOCD_URL }}"
+            echo "::set-output name=argocd_username::${{ secrets.DEV_ARGOCD_USERNAME }}"
+            echo "::set-output name=argocd_password::${{ secrets.DEV_ARGOCD_PASS }}"
+            echo "::set-output name=argocd_project::'iam-engie-kyc-app'"
+            echo "::set-output name=argocd_tag::"image.tag"
+          elif [ "${{ github.ref }}" = "refs/heads/gp4btc-dev" ]; then
+            echo "::set-output name=aws_access_key_id::${{ secrets.DEV_AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=aws_secret_key::${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}"
+            echo "::set-output name=aws_region::${{ secrets.DEV_AWS_REGION }}"
+            echo "::set-output name=aws_ecr_repository::${{ secrets.DEV_ECR_REPOSITORY }}"
+            echo "::set-output name=argocd_url::${{ secrets.DEV_ARGOCD_URL }}"
+            echo "::set-output name=argocd_username::${{ secrets.DEV_ARGOCD_USERNAME }}"
+            echo "::set-output name=argocd_password::${{ secrets.DEV_ARGOCD_PASS }}"
+            echo "::set-output name=argocd_project::'iam-kyc-app-gp4btc'"
+            echo "::set-output name=argocd_tag::"image.tag"
+          elif [ "${{ github.ref }}" = "refs/heads/gp4btc-stg" ]; then
+            echo "::set-output name=aws_access_key_id::${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=aws_secret_key::${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}"
+            echo "::set-output name=aws_region::${{ secrets.STAGING_AWS_REGION }}"
+            echo "::set-output name=aws_ecr_repository::${{ secrets.STAGING_ECR_REPOSITORY }}"
+            echo "::set-output name=argocd_url::${{ secrets.STAGING_ARGOCD_URL }}"
+            echo "::set-output name=argocd_username::${{ secrets.STAGING_ARGOCD_USERNAME }}"
+            echo "::set-output name=argocd_password::${{ secrets.STAGING_ARGOCD_PASS }}"
+            echo "::set-output name=argocd_project::'iam-kyc-app-gp4btc'"            
+          elif [ "${{ github.ref }}" = "refs/heads/release" ]; then
+            echo "::set-output name=aws_access_key_id::${{ secrets.PROD_AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=aws_secret_key::${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}"
+            echo "::set-output name=aws_region::${{ secrets.PROD_AWS_REGION }}"
+            echo "::set-output name=aws_ecr_repository::${{ secrets.PROD_ECR_REPOSITORY }}"
+            echo "::set-output name=argocd_url::${{ secrets.PROD_ARGOCD_URL }}"
+            echo "::set-output name=argocd_username::${{ secrets.PROD_ARGOCD_USERNAME }}"
+            echo "::set-output name=argocd_password::${{ secrets.PROD_ARGOCD_PASS }}"
+            echo "::set-output name=argocd_project::'iam-kyc-app'"
+            echo "::set-output name=argocd_tag::"image.tag"
+          else
+            echo "Branch ${{ github.ref }} is not configured for deployment"
+            exit 1
+          fi
+      - uses: actions/checkout@v2
