@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: https://energywebfoundation.github.io/generic-microservices-helm/
+    targetRevision: 0.1.2
+    helm:
+      values: |
+        containerPort: 8080
+        image:
+          repository: gcr.io/cloudrun/hello
+          tag: latest
+    chart: microservice
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
