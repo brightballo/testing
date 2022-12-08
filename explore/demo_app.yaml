@@ -16,7 +16,7 @@ spec:
             kubernetes.io/ingress.class: nginx
             # nginx.ingress.kubernetes.io/rewrite-target: /
             nginx.ingress.kubernetes.io/server-snippet: |
-              location = /grafana {       
+              location = / {       
                 proxy_pass http://grafana.monitoring.svc.cluster.local;
               }            
           hosts:
