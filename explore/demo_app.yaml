@@ -10,6 +10,15 @@ spec:
     targetRevision: 0.1.2
     helm:
       values: |
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+          hosts:
+            - host: demo.devops-playground.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific        
         containerPort: 8080
         image:
           repository: gcr.io/cloudrun/hello
