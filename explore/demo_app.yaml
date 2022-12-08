@@ -14,6 +14,11 @@ spec:
           enabled: true
           annotations:
             kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/rewrite-target: /
+            nginx.ingress.kubernetes.io/server-snippet: |
+              location = /fly {       
+                proxy_pass https://www.google.com/travel/flights;
+              }            
           hosts:
             - host: demo.devops-playground.com
               paths:
