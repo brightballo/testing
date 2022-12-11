@@ -31,9 +31,6 @@ spec:
         image:
           repository: gcr.io/cloudrun/hello
           tag: latest
-        argocdServer:
-          extraArgs:
-            - --enable-rls
     chart: microservice
   destination:
     server: 'https://kubernetes.default.svc'
