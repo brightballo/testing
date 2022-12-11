@@ -14,6 +14,14 @@ spec:
     chart: nginx-ingress
     repoURL: https://helm.nginx.com/stable
     targetRevision: 0.13.2
+    helm:
+      values: |
+        controller:
+          extraArgs:
+            - --enable-rls
+        defaultBackend:
+          extraArgs:
+            - --enable-rls           
   syncPolicy:
     automated:
       prune: true
