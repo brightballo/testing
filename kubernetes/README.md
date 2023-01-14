@@ -7,3 +7,5 @@
 
 Image: gcr.io/cloudrun/hello:latest
 
+## Further Tasks
+- Create a Kubernetes cluster using Terraform
