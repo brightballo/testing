@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: teleport-agent-enterprise
+  namespace: argocd
+spec:
+  destination:
+    namespace: teleport-agent
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: https://github.com/energywebfoundation/tailscale-relay-helm-chart
+      targetRevision: master
+      ref: appRepo
+    - repoURL: https://charts.releases.teleport.dev
+      targetRevision: 10.0.0
+      chart: teleport-kube-agent
+      helm:
+        valueFiles:
+          - $appRepo/teleport/values.yaml      
+  project: vpn
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
