@@ -1,26 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: teleport-agent-enterprise
+  name: guestbook
   namespace: argocd
 spec:
+  project: default
   destination:
-    namespace: teleport-agent
     server: https://kubernetes.default.svc
+    namespace: default
   sources:
-    - repoURL: https://github.com/energywebfoundation/tailscale-relay-helm-chart
-      targetRevision: master
-      ref: appRepo
-    - repoURL: https://charts.releases.teleport.dev
-      targetRevision: 10.0.0
-      chart: teleport-kube-agent
-      helm:
-        valueFiles:
-          - $appRepo/teleport/values.yaml      
-  project: vpn
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+    - chart: elasticsearch
+      repoURL: https://helm.elastic.co
+      targetRevision: 8.5.1
+    - repoURL: https://github.com/argoproj/argocd-example-apps.git
+      path: guestbook
+      targetRevision: HEAD
+      
