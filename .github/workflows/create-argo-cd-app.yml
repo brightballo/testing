@@ -8,7 +8,7 @@ jobs:
         id: argocd_login
         uses: clowdhaus/argo-cd-action/@v1.12.1
         env:
-          argocd_url: "34.170.50.76"
+          argocd_url: "34.170.110.55"
           argocd_username: "admin"
           argocd_password: "XpDhb8uNWlCIuTtV"
         with:
