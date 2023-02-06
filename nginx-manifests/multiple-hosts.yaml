@@ -38,7 +38,7 @@ spec:
           service:
             name: guestbook-helm-guestbook
             port:
-              number: 80
+              name: http
   - host: host2.hostspaceng.com
     http:
       paths:
@@ -48,4 +48,4 @@ spec:
           service:
             name: guestbook-helm-guestbook
             port:
-              number: 80              
+              name: http              
