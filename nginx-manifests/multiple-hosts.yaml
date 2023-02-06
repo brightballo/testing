@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: multiple-hosts
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/server-snippet: |
       location ~* {
           proxy_pass https://www.google.com;
