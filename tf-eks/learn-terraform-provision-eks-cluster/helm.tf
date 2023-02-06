@@ -3,6 +3,7 @@ resource "helm_release" "argocd" {
   name = "argocd"
 
   repository = "https://argoproj.github.io/argo-helm"
+  version = "4.9.12"
   chart      = "argo-cd"
 
   namespace        = "argocd"
@@ -11,5 +12,9 @@ resource "helm_release" "argocd" {
   set {
     name  = "server.service.type"
     value = "LoadBalancer"
+  }
+  set {
+    name  = "global.image.tag"
+    value = "v2.4.4"
   }
 }
