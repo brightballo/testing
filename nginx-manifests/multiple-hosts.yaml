@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
     - host1.hostspaceng.com
-    secretName: my-tls-secret
+    secretName: tls-secret
   rules:
   - host: host1.hostspaceng.com
     http:
