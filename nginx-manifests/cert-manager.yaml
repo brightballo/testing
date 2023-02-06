@@ -2,9 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cert-manager
-  namespace: default
+  namespace: argocd
 spec:
-  project: cert-manager
+  project: default
   source:
     repoURL: 'https://charts.jetstack.io'
     targetRevision: v1.9.1
@@ -15,7 +15,7 @@ spec:
     chart: cert-manager
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default
+    namespace: cert-manager
   syncPolicy:
     automated:
       selfHeal: true
