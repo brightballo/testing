@@ -1,5 +1,5 @@
 provider "google" {
-  project = "dev-workloads"
+  project = "streetz"
   region  = "us-central1"
 }
 

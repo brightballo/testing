@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "dev-workloads-terraform-state"
+    bucket = "streetz-terraform-state"
     prefix  = "gke-helm-argocd"
   }
 }
