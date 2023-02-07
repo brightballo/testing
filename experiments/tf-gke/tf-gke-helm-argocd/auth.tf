@@ -8,7 +8,7 @@ resource "time_sleep" "wait_30_seconds" {
 module "gke_auth" {
   depends_on           = [time_sleep.wait_30_seconds]
   source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
-  project_id           = "dev-workloads"
+  project_id           = "streetz"
   cluster_name         = "dev-workloads-cluster"
   location             = "us-central1"
   use_private_endpoint = false
