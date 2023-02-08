@@ -18,15 +18,14 @@ spec:
           annotations:
             nginx.ingress.kubernetes.io/server-snippet: |
               location / {
-                      proxy_pass ${FRONTEND_URL};
+                      proxy_pass http://my-mailhog.default.svc.cluster.local;
               }
-
               location /api {
-                  proxy_pass ${BACKEND_URL}/api;
+                  proxy_pass http://guestbook-helm-guestbook.default.svc.cluster.local/api;
               }
               error_page   500 502 503 504  /50x.html;
               location = /50x.html {
-                      proxy_pass ${FRONTEND_URL};
+                      proxy_pass http://my-mailhog.default.svc.cluster.local;
               } 
     repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
     targetRevision: master
