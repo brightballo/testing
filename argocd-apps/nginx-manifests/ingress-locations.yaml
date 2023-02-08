@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-ingress-locations
+  namespace: argocd
+spec:
+  project: default
+  source:
+    helm:
+      values: |
+        env:
+          BACKEND_URL: http://guestbook-helm-guestbook.default.svc.cluster.local
+          FRONTEND_URL: http://my-mailhog.default.svc.cluster.local      
+        service:
+          type: LoadBalancer
+        ingress:
+          enabled: true
+          annotations:
+            nginx.ingress.kubernetes.io/server-snippet: |
+              location / {
+                      proxy_pass ${FRONTEND_URL};
+              }
+
+              location /api {
+                  proxy_pass ${BACKEND_URL}/api;
+              }
+              error_page   500 502 503 504  /50x.html;
+              location = /50x.html {
+                      proxy_pass ${FRONTEND_URL};
+              } 
+    repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
+    targetRevision: master
+    path: ./
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
+    
