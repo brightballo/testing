@@ -18,6 +18,7 @@ spec:
       http:
         paths:
           - path: /_next/static/
+            pathType: Prefix
             backend:
               service:
                 name: next-app-service
