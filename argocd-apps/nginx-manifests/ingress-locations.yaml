@@ -12,7 +12,7 @@ spec:
           BACKEND_URL: http://guestbook-helm-guestbook.default.svc.cluster.local
           FRONTEND_URL: http://my-mailhog.default.svc.cluster.local
         hosts:
-          - host: double-locations.hostspaceng.com
+          - host: double-location.hostspaceng.com
             paths:
               - path: /
                 pathType: ImplementationSpecific          
