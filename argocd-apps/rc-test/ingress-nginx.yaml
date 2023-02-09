@@ -10,13 +10,16 @@ spec:
     namespace: ingress-nginx
     server: https://kubernetes.default.svc
   project: default
-  source:
+  sources:
+  - repoURL: git@github.com:Timtech4u/devops-playground.git
+    targetRevision: HEAD
+    ref: timtechRepo
+  - repoURL: https://helm.nginx.com/stable
     chart: nginx-ingress
-    repoURL: https://helm.nginx.com/stable
     targetRevision: 0.13.2
     helm:
       valueFiles:
-        - values/values-ingress-nginx.yaml         
+        - $timtechRepo/argocd-apps/rc-test/values/values-ingress-nginx.yaml         
   syncPolicy:
     automated:
       prune: true
