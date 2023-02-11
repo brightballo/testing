@@ -4,10 +4,43 @@ metadata:
   name: my-proxied-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/server-snippet: |
-      location /api {
-        proxy_pass http://hello-service.default.svc.cluster.local;
+      server {
+          server_name  host1.hostspaceng.com;
+
+          location = /auth/login {
+              proxy_pass http://hello-service.default.svc.cluster.local;
+          }
+
+          location / {
+              auth_request /token_introspection;
+              proxy_pass http://hello-service.default.svc.cluster.local;
+          }
+
+          location = /token_introspection {
+              internal;
+              proxy_method      GET;
+              proxy_set_header  Authorization "$http_authorization";
+              proxy_set_header  Content-Length "";
+              proxy_pass        http://auth-server/auth/token-introspection;
+          }
+      }
+
+      server {
+          server_name  host2.hostspaceng.com;
+
+          location / {
+              auth_request /token_introspection;
+              proxy_pass http://next-app-service.default.svc.cluster.local;
+          }
+
+          location = /token_introspection {
+              internal;
+              proxy_method      GET;
+              proxy_set_header  Authorization "$http_authorization";
+              proxy_set_header  Content-Length "";
+              proxy_pass        http://next-app-service.default.svc.cluster.local;
+          }
       }
 spec:
   rules:

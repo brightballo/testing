@@ -10,25 +10,28 @@ spec:
       values: |
         env:
           BACKEND_URL: http://next-app-service.default.svc.cluster.local
-          FRONTEND_URL: http://hello-service.default.svc.cluster.local      
-        ingress:        
+          FRONTEND_URL: http://hello-service.default.svc.cluster.local    
+        ingress:
           enabled: true
           annotations:
-            kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/rewrite-target: /
-            nginx.ingress.kubernetes.io/server-snippet: |
-              server_name double-location.hostspaceng.com;
-
-              location /hello {
-                      proxy_pass http://hello-service.default.svc.cluster.local;
-              }
-              location /next {
-                  proxy_pass http://next-app-service.default.svc.cluster.local;
-              }
-              error_page   500 502 503 504  /50x.html;
-              location = /50x.html {
-                      proxy_pass http://hello-service.default.svc.cluster.local;
-              }           
+              kubernetes.io/ingress.class: nginx
+          hosts:
+            - host: double-location.hostspaceng.com
+              paths:
+              - path: /hello
+                pathType: Prefix
+                backend:
+                  service:
+                    name: hello-service
+                    port:
+                      name: http
+              - path: /next
+                pathType: Prefix
+                backend:
+                  service:
+                    name: next-app-service
+                    port:
+                      name: http                      
     repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
     targetRevision: master
     path: ./
