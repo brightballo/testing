@@ -20,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: my-mailhog
+                name: hello-service
                 port:
                   name: http

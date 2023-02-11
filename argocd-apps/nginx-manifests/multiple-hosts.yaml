@@ -1,22 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: multiple-hosts
+  name: multiple-ingress-hosts
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
-    nginx.ingress.kubernetes.io/secure-backends: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location / {
-          return 301 https://$host$request_uri;
-      }
+    kubernetes.io/ingress.class: nginx
 spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - host1.hostspaceng.com
-    secretName: tls-secret
   rules:
   - host: host1.hostspaceng.com
     http:
@@ -25,7 +13,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: guestbook-helm-guestbook
+            name: hello-service
             port:
               name: http
   - host: host2.hostspaceng.com
@@ -35,6 +23,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: guestbook-helm-guestbook
+            name: next-app-service
             port:
               name: http
