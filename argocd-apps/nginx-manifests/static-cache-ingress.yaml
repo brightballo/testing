@@ -12,10 +12,11 @@ metadata:
               proxy_pass http://hello-service.default.svc.cluster.local;
           }
 
-          location / {
-              auth_request /token_introspection;
-              proxy_pass http://hello-service.default.svc.cluster.local;
-          }
+          # Removing this as it complains of duplicate error
+          # location / {
+          #     auth_request /token_introspection;
+          #     proxy_pass http://hello-service.default.svc.cluster.local;
+          # }
 
           location = /token_introspection {
               internal;
