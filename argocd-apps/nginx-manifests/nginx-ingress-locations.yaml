@@ -8,6 +8,8 @@ spec:
   source:
     helm:
       values: |
+        image:
+          repository: gcr.io/cloudrun/hello
         env:
           BACKEND_URL: http://next-app-service.default.svc.cluster.local
           FRONTEND_URL: http://hello-service.default.svc.cluster.local    
@@ -15,24 +17,15 @@ spec:
           enabled: true
           annotations:
               kubernetes.io/ingress.class: nginx
+              nginx.ingress.kubernetes.io/server-snippet: |
+                    location = /next {
+                        proxy_pass http://next-app-service.default.svc.cluster.local;
+                    }              
           hosts:
-              # This does not work as the Helm Chart doesn't support it
             - host: double-location.hostspaceng.com
               paths:
-              - path: /hello
-                pathType: Prefix
-                backend:
-                  service:
-                    name: hello-service
-                    port:
-                      name: http
-              - path: /next
-                pathType: Prefix
-                backend:
-                  service:
-                    name: next-app-service
-                    port:
-                      name: http                      
+              - path: /
+                pathType: Prefix                   
     repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
     targetRevision: master
     path: ./
