@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ingress-nginx
-  namespace: argocd
+  namespace: default
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -10,16 +10,18 @@ spec:
     namespace: ingress-nginx
     server: https://kubernetes.default.svc
   project: default
-  sources:
-  # - repoURL: git@github.com:Timtech4u/devops-playground.git
-  #  targetRevision: HEAD
-  #  ref: timtechRepo
-  - repoURL: https://helm.nginx.com/stable
+  source:
     chart: nginx-ingress
+    repoURL: https://helm.nginx.com/stable
     targetRevision: 0.13.2
-   # helm:
-   #   valueFiles:
-   #     - $timtechRepo/argocd-apps/rc-test/values/values-ingress-nginx.yaml         
+    helm:
+      values: |
+        controller:
+          extraArgs:
+            - --enable-rls
+        defaultBackend:
+          extraArgs:
+            - --enable-rls           
   syncPolicy:
     automated:
       prune: true
