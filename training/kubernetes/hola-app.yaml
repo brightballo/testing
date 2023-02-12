@@ -12,6 +12,7 @@ spec:
           repository: gcr.io/cloudrun/hello
         service:
           type: LoadBalancer
+        containerPort: 8080
     repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
     targetRevision: master
     path: ./
