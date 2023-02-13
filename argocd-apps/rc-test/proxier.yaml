@@ -17,6 +17,7 @@ spec:
   ingressClassName: nginx
   rules:
   - http:
+    host: aws-proxy.hostspaceng.com
       paths:
       - path: /
         pathType: Prefix
