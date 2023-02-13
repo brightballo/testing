@@ -28,4 +28,11 @@ spec:
               service:
                 name: my-mailhog
                 port:
-                  number: 8025
+                  name: http
+          - path: /hello
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-service
+                port:
+                  name: http
