@@ -7,12 +7,12 @@ metadata:
     nginx.ingress.kubernetes.io/server-snippet: |
           server_name  host1.hostspaceng.com host2.hostspaceng.com;
 
-          location = /auth/login {
-              proxy_pass http://hello-service.default.svc.cluster.local;
+          location /mail {
+              proxy_pass http://my-mailhog.default.svc.cluster.local:8025;
           }
 spec:
   rules:
-    - host: static-cache.hostspaceng.com #Works with above server names
+    - host: static-cache.hostspaceng.com
       http:
         paths:
           - path: /
@@ -22,3 +22,10 @@ spec:
                 name: next-app-service
                 port:
                   name: http
+          - path: /mailz
+            pathType: Prefix
+            backend:
+              service:
+                name: my-mailhog
+                port:
+                  number: 8025

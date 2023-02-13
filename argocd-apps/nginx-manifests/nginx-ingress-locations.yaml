@@ -18,7 +18,7 @@ spec:
           annotations:
               kubernetes.io/ingress.class: nginx
               nginx.ingress.kubernetes.io/server-snippet: |
-                    location = /next {
+                    location /next {
                         proxy_pass http://next-app-service.default.svc.cluster.local;
                     }              
           hosts:
