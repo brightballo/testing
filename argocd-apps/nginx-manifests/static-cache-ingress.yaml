@@ -27,7 +27,7 @@ spec:
                 name: my-mailhog
                 port:
                   name: http
-          - path: /hello
+          - path: /hello(/|$)(.*)
             pathType: Prefix
             backend:
               service:
