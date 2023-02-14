@@ -18,14 +18,11 @@ spec:
           annotations:
               kubernetes.io/ingress.class: nginx
               nginx.ingress.kubernetes.io/server-snippet: |
-                    location /next {
+                    server_name double-location.hostspaceng.com;
+                    
+                    location / {
                         proxy_pass http://next-app-service.default.svc.cluster.local;
-                    }              
-          hosts:
-            - host: double-location.hostspaceng.com
-              paths:
-              - path: /
-                pathType: Prefix                   
+                    }                               
     repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
     targetRevision: master
     path: ./
