@@ -22,7 +22,7 @@ spec:
                 name: next-app-service
                 port:
                   name: http
-          - path: /mailz
+          - path: /mailhog
             pathType: Prefix
             backend:
               service:
