@@ -10,14 +10,14 @@ spec:
     - host: static-cache.hostspaceng.com
       http:
         paths:
-          - path: /next-app
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: next-app-service
                 port:
                   name: http
-          - path: /
+          - path: /mailhog
             pathType: Prefix
             backend:
               service:
