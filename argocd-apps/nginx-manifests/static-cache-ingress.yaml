@@ -4,12 +4,6 @@ metadata:
   name: my-proxied-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/server-snippet: |
-          server_name  host1.hostspaceng.com host2.hostspaceng.com;
-
-          location /mail {
-              proxy_pass http://my-mailhog.default.svc.cluster.local:8025;
-          }
 spec:
   rules:
     - host: static-cache.hostspaceng.com
