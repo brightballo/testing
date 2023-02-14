@@ -20,7 +20,7 @@ spec:
                 name: next-app-service
                 port:
                   name: http
-          - path: /mailhog
+          - path: /mailhog(/|$)(.*)
             pathType: Prefix
             backend:
               service:
