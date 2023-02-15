@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hola-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    helm:
+      values: |
+        image:
+          repository: gcr.io/cloudrun/hello
+        service:
+          type: LoadBalancer
+        containerPort: 8080
+    repoURL: https://github.com/energywebfoundation/generic-microservices-helm.git
+    targetRevision: master
+    path: ./
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
