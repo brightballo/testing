@@ -10,6 +10,7 @@ spec:
       values: |
         image:
           repository: gcr.io/cloudrun/hello
+          tag: latest
         env:
           BACKEND_URL: http://next-app-service.default.svc.cluster.local
           FRONTEND_URL: http://hello-service.default.svc.cluster.local    
