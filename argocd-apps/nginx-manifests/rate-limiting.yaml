@@ -10,7 +10,7 @@ data:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: rate-limiting-ingress
   annotations:
     nginx.ingress.kubernetes.io/limit-req-zone: "$binary_remote_addr zone=api"
     nginx.ingress.kubernetes.io/limit-req: "zone=api burst=5 nodelay"
