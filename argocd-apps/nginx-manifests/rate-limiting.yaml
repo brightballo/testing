@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+data:
+  enable-rate-limiting: "true"
+  rate-limit-requests-per-second: "10"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/limit-req-zone: "$binary_remote_addr zone=api"
+    nginx.ingress.kubernetes.io/limit-req: "zone=api burst=5 nodelay"
+spec:
+  rules:
+    - host: limits.hostspaceng.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-service
+                port:
+                  name: http
