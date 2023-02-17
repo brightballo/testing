@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-configuration
-  namespace: ingress-nginx
+  namespace: nginx
 data:
   enable-rate-limiting: "true"
   rate-limit-requests-per-second: "10"
