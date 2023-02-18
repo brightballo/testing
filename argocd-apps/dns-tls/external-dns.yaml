@@ -9,9 +9,16 @@ spec:
     repoURL: https://charts.bitnami.com/bitnami
     targetRevision: 6.13.4
     helm:
-      parameters:
-        - name: installCRDs
-          value: 'true'
+      values: |
+        sources:
+          - service
+          - ingress
+        provider: google
+        google:
+          project: "my-bitnami-hosting"
+          serviceAccountSecret: "external-dns-gcp-key"
+          serviceAccountSecretKey: "service-account-key"
+        domainFilters: ["hostspaceng.com"]        
     chart: external-dns
   destination:
     server: https://kubernetes.default.svc
@@ -21,4 +28,3 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-    
