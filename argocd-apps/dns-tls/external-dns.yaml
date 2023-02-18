@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external.dns
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 6.13.4
+    helm:
+      values: |
+        sources:
+          - service
+          - ingress
+        provider: google
+        google:
+          project: "my-bitnami-hosting"
+          serviceAccountSecret: "external-dns-gcp-key"
+          serviceAccountSecretKey: "service-account-key"
+        domainFilters: ["hostspaceng.com"]        
+    chart: external-dns
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: external-dns
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
