@@ -28,6 +28,16 @@ spec:
                 name: hello-service
                 port:
                   name: http
+    - host: limits.devops-playground.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-service
+                port:
+                  name: http                  
   tls:
     - hosts:
       - limits.hostspaceng.com
