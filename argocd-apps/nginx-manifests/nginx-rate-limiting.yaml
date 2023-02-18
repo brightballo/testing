@@ -41,3 +41,4 @@ spec:
   tls:
     - hosts:
       - limits.hostspaceng.com
+      secretName: limits-tls-secret
