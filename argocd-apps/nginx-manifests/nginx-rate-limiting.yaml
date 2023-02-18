@@ -14,6 +14,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/limit-req-zone: "$binary_remote_addr zone=api"
     nginx.ingress.kubernetes.io/limit-req: "zone=api burst=5 nodelay"
+    cert-manager.io/cluster-issuer: letsencrypt-production
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
@@ -27,3 +28,6 @@ spec:
                 name: hello-service
                 port:
                   name: http
+  tls:
+    - hosts:
+      - limits.hostspaceng.com
