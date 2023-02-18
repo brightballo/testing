@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: origin-247-postgres
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: postgres
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+  - repoURL: git@github.com:Timtech4u/devops-playground.git
+    targetRevision: HEAD
+    ref: timtechRepo
+  - repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 11.6.16
+    helm:
+      valueFiles:
+        - $timtechRepo/training/values/origin-247/postgres.yaml         
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

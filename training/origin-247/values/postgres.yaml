@@ -1,0 +1,14 @@
+global:
+  auth:
+    postgresPassword: "password"
+    username: "origin_user"
+    password: "password"
+    database: "origin_db"
+primary:
+  service:
+    type: "LoadBalancer"    
+  initdb:
+    scripts:
+      "init.sql": "CREATE DATABASE origin_db;
+GRANT ALL PRIVILEGES ON DATABASE origin_db TO origin_user;"
+# You can add more SQL scripts to create databases here
