@@ -1,0 +1,11 @@
+controller:
+    replicaCount: 3
+    extraArgs:
+        - --enable-rls
+    addHeaders: {
+      "use-forwarded-headers": "true",
+      "compute-full-forwarded-for": "true"
+    }        
+defaultBackend:
+    extraArgs:
+        - --enable-rls   
