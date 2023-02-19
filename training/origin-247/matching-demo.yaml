@@ -8,11 +8,13 @@ spec:
   source:
     helm:
       values: |
-        containerPort: 5000
         image:
           repository: ghcr.io/hostspaceng/origin247-apps-dockerfiles/matching
           pullPolicy: Always
           tag: latest
+        container:
+          ports:
+            http: 5000        
         ingress:
           enabled: true
           annotations:
