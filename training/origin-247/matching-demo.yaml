@@ -10,9 +10,9 @@ spec:
       values: |
         containerPort: 5000
         image:
-          # @TODO: Update this when GCHR images are properly labelled 
-          repository: ghcr.io/hostspaceng/origin247-apps-dockerfiles
-          tag: main
+          repository: ghcr.io/hostspaceng/origin247-apps-dockerfiles/matching
+          pullPolicy: Always
+          tag: latest
         ingress:
           enabled: true
           annotations:
