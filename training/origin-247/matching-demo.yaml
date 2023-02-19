@@ -8,8 +8,9 @@ spec:
   source:
     helm:
       values: |
+        containerPort: 5000
         image:
-          # @TODO: Update this when images are properly labelled on GCHR
+          # @TODO: Update this when GCHR images are properly labelled 
           repository: ghcr.io/hostspaceng/origin247-apps-dockerfiles
           tag: main
         ingress:
